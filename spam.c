@@ -1,11 +1,15 @@
 #include "Python.h"
 
+// python: spam.spam_system("ls -l")
+// "self" equals to Module, "ls -l" is first value in arguments tuple
 static PyObject *
 spam_system(PyObject *self, PyObject *args)
 {
     const char *command;
     int sts;
 
+    // args ("ls -t",) assign to command
+    // "s" is signature of 'Convert Unicode object to "char object of C" with UTF-8 encoding'
     if (!PyArg_ParseTuple(args, "s", &command))
         return NULL;
     sts = system(command);
