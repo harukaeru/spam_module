@@ -1,6 +1,6 @@
 #include "Python.h"
 
-// python: spam.spam_system("ls -l")
+// python: spam.system("ls -l")
 // "self" equals to Module, "ls -l" is first value in arguments tuple
 static PyObject *
 spam_system(PyObject *self, PyObject *args)
@@ -13,6 +13,8 @@ spam_system(PyObject *self, PyObject *args)
     if (!PyArg_ParseTuple(args, "s", &command))
         return NULL;
     sts = system(command);
+    // If you don't want to return anything, you should RETURN Py_None object as the following.
+    // Py_RETURN_NONE;  // NOT "return Py_RETURN_NONE;"
     return PyLong_FromLong(sts);
 }
 
